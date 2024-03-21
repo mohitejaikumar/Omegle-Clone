@@ -1,16 +1,23 @@
 {
-  "name": "backend",
-  "version": "1.0.0",
-  "description": "",
-  "main": "src/index.ts",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start" : "nodemon dist/index.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "socket.io": "^4.7.5"
-  }
+	"name": "backend",
+	"version": "1.0.0",
+	"description": "",
+	"main": "src/index.ts",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "nodemon dist/index.js",
+		"build": "tsc",
+		"add-build": "git add dist"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"pre-commit": "^1.2.2",
+		"socket.io": "^4.7.5"
+	},
+	"pre-commit": [
+		"build",
+		"add-build"
+	]
 }
