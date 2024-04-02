@@ -95,6 +95,7 @@ export const Room = ({
             pc.onconnectionstatechange = async ()=>{
                      if(pc.connectionState === 'disconnected'){
                         pc.close();
+                        getCallInit();
                      }
             }
             setReceivingPc(pc);
