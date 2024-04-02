@@ -23,9 +23,8 @@ export const Room = ({
     console.log(name, remoteAudioTrack, remoteVideoTrack, remoteVideoRef, sendingPc, receivingPc, Socket)
 
     function getCallInit() {
-        // if(Socket){
-        //     Socket.disconnect();
-        // }
+        
+        // disconnect first
         setSendingPc((pc)=>{
             if(pc){
                 pc.close();
@@ -38,6 +37,9 @@ export const Room = ({
             }
             return pc;
         });
+        setRemoteAudioTrack(null);
+        setRemoteVideoTrack(null);
+
         const socket = io('https://omegle-backend.jaik.co.in/' , {
             rejectUnauthorized:false,
         });
