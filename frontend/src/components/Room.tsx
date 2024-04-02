@@ -26,6 +26,12 @@ export const Room = ({
         // if(Socket){
         //     Socket.disconnect();
         // }
+        setSendingPc((pc)=>{
+            if(pc){
+                pc.close();
+            }
+            return pc;
+        })
         const socket = io('https://omegle-backend.jaik.co.in/' , {
             rejectUnauthorized:false,
         });
