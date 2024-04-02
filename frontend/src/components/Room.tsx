@@ -26,7 +26,7 @@ export const Room = ({
         // if(Socket){
         //     Socket.disconnect();
         // }
-        const socket = io('http://ec2-43-204-102-92.ap-south-1.compute.amazonaws.com' , {
+        const socket = io('http://omegle-backend.jaik.co.in/' , {
             rejectUnauthorized:false,
         });
 
