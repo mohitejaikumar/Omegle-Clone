@@ -26,7 +26,9 @@ export const Room = ({
         // if(Socket){
         //     Socket.disconnect();
         // }
-        const socket = io('https://ec2-43-204-102-92.ap-south-1.compute.amazonaws.com:3000' , {secure:true});
+        const socket = io('https://ec2-43-204-102-92.ap-south-1.compute.amazonaws.com:3000' , {
+            rejectUnauthorized:false,
+        });
 
         socket.on('call-initiated', ({ roomId }) => {
             console.log("Call initiated with ", roomId);
