@@ -32,6 +32,12 @@ export const Room = ({
             }
             return pc;
         })
+        setReceivingPc((pc)=>{
+            if(pc){
+                pc.close();
+            }
+            return pc;
+        });
         const socket = io('https://omegle-backend.jaik.co.in/' , {
             rejectUnauthorized:false,
         });
