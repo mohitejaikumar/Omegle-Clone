@@ -252,7 +252,7 @@ export const Room = ({
         if (localVideoTrack && localAudioTrack) {
 
             if (localVideoRef.current) {
-                localVideoRef.current.srcObject = new MediaStream([localVideoTrack, localAudioTrack]);
+                localVideoRef.current.srcObject = new MediaStream([localVideoTrack]);
                 localVideoRef.current.play();
             }
 
