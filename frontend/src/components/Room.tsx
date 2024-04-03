@@ -1,6 +1,43 @@
 import React, { useEffect, useRef, useState } from 'react'
 import io, { Socket } from 'socket.io-client'
 
+const rtcOptions = {
+    iceServers: [
+        {
+            urls: [
+                'stun:stun1.l.google.com:19302',
+                'stun:stun2.l.google.com:19302',
+
+            ]
+        },
+        {
+            urls: 'turn:numb.viagenie.ca',
+            credential: 'muazkh',
+            username: 'webrtc@live.com'
+        },
+        {
+            urls: 'turn:192.158.29.39:3478?transport=udp',
+            credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
+            username: '28224511:1379330808'
+        },
+        {
+            urls: 'turn:192.158.29.39:3478?transport=tcp',
+            credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
+            username: '28224511:1379330808'
+        },
+        {
+            urls: 'turn:turn.bistri.com:80',
+            credential: 'homeo',
+            username: 'homeo'
+        },
+        {
+            urls: 'turn:turn.anyfirewall.com:443?transport=tcp',
+            credential: 'webrtc',
+            username: 'webrtc'
+        }
+    ]
+}
+
 
 export const Room = ({
     name,
@@ -47,16 +84,7 @@ export const Room = ({
         socket.on('call-initiated', ({ roomId }) => {
             console.log("Call initiated with ", roomId);
 
-            const pc = new RTCPeerConnection({
-                iceServers: [
-                    {
-                        urls: [
-                            'stun:stun1.l.google.com:19302',
-                            'stun:stun2.l.google.com:19302',
-                        ]
-                    }
-                ]
-            });
+            const pc = new RTCPeerConnection(rtcOptions);
             setSendingPc(pc);
             /// build peerConnection 
             //  offerCreate 
@@ -100,16 +128,7 @@ export const Room = ({
             // store offer in localdescription
             // create Answer and save it in remoteDescription and send it othr peer
 
-            const pc = new RTCPeerConnection({
-                iceServers: [
-                    {
-                        urls: [
-                            'stun:stun1.l.google.com:19302',
-                            'stun:stun2.l.google.com:19302',
-                        ]
-                    }
-                ]
-            });
+            const pc = new RTCPeerConnection(rtcOptions);
             // pc.onconnectionstatechange = async ()=>{
             //          if(pc.connectionState === 'disconnected'){
             //             pc.close();
