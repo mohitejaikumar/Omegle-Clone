@@ -92,12 +92,12 @@ export const Room = ({
             // create Answer and save it in remoteDescription and send it othr peer
 
             const pc = new RTCPeerConnection();
-            pc.onconnectionstatechange = async ()=>{
-                     if(pc.connectionState === 'disconnected'){
-                        pc.close();
-                        getCallInit();
-                     }
-            }
+            // pc.onconnectionstatechange = async ()=>{
+            //          if(pc.connectionState === 'disconnected'){
+            //             pc.close();
+            //             getCallInit();
+            //          }
+            // }
             setReceivingPc(pc);
             await pc.setRemoteDescription(new RTCSessionDescription(sdp));
             const answer = await pc.createAnswer();
