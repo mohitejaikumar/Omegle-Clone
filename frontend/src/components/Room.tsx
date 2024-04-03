@@ -23,16 +23,16 @@ export const Room = ({
     console.log(name, remoteAudioTrack, remoteVideoTrack, remoteVideoRef, sendingPc, receivingPc, Socket)
 
     function getCallInit() {
-        
+
         // disconnect first
-        setSendingPc((pc)=>{
-            if(pc){
+        setSendingPc((pc) => {
+            if (pc) {
                 pc.close();
             }
             return pc;
         })
-        setReceivingPc((pc)=>{
-            if(pc){
+        setReceivingPc((pc) => {
+            if (pc) {
                 pc.close();
             }
             return pc;
@@ -40,14 +40,23 @@ export const Room = ({
         setRemoteAudioTrack(null);
         setRemoteVideoTrack(null);
 
-        const socket = io('https://omegle-backend.jaik.co.in/' , {
-            rejectUnauthorized:false,
+        const socket = io('https://omegle-backend.jaik.co.in/', {
+            rejectUnauthorized: false,
         });
 
         socket.on('call-initiated', ({ roomId }) => {
             console.log("Call initiated with ", roomId);
 
-            const pc = new RTCPeerConnection();
+            const pc = new RTCPeerConnection({
+                iceServers: [
+                    {
+                        urls: [
+                            'stun:stun1.l.google.com:19302',
+                            'stun:stun2.l.google.com:19302',
+                        ]
+                    }
+                ]
+            });
             setSendingPc(pc);
             /// build peerConnection 
             //  offerCreate 
@@ -91,7 +100,16 @@ export const Room = ({
             // store offer in localdescription
             // create Answer and save it in remoteDescription and send it othr peer
 
-            const pc = new RTCPeerConnection();
+            const pc = new RTCPeerConnection({
+                iceServers: [
+                    {
+                        urls: [
+                            'stun:stun1.l.google.com:19302',
+                            'stun:stun2.l.google.com:19302',
+                        ]
+                    }
+                ]
+            });
             // pc.onconnectionstatechange = async ()=>{
             //          if(pc.connectionState === 'disconnected'){
             //             pc.close();
