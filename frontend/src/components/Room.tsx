@@ -56,11 +56,12 @@ export const Room = ({
     const localVideoRef = useRef<HTMLVideoElement>(null);
     const remoteVideoRef = useRef<HTMLVideoElement>(null);
     const [Socket, setSocket] = useState<Socket | null>(null);
+    const [userAdded, setUserAdded] = useState(false);
 
     console.log(name, remoteAudioTrack, remoteVideoTrack, remoteVideoRef, sendingPc, receivingPc, Socket)
 
     function getCallInit() {
-
+        setUserAdded(false);
         // disconnect first
         setSendingPc((pc) => {
             if (pc) {
@@ -129,11 +130,11 @@ export const Room = ({
             // create Answer and save it in remoteDescription and send it othr peer
 
             const pc = new RTCPeerConnection(rtcOptions);
-            pc.onconnectionstatechange = async ()=>{
-                     if(pc.connectionState === 'disconnected'){
-                        pc.close();
-                        getCallInit();
-                     }
+            pc.onconnectionstatechange = async () => {
+                if (pc.connectionState === 'disconnected') {
+                    pc.close();
+                    getCallInit();
+                }
             }
             setReceivingPc(pc);
             await pc.setRemoteDescription(new RTCSessionDescription(sdp));
@@ -205,6 +206,7 @@ export const Room = ({
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 //@ts-expect-error
                 remoteVideoRef.current.play();
+                setUserAdded(true);
 
             }, 10000)
 
@@ -253,7 +255,7 @@ export const Room = ({
 
             if (localVideoRef.current) {
                 localVideoRef.current.srcObject = new MediaStream([localVideoTrack]);
-            
+
                 localVideoRef.current.play();
             }
 
@@ -271,7 +273,7 @@ export const Room = ({
                 </div>
                 <div>
                     <h1>RemoteStream</h1>
-                    { !remoteVideoRef.current && 
+                    {!userAdded &&
                         <h1>Please Wait ...</h1>
                     }
                     <video src="" autoPlay ref={remoteVideoRef}></video>
