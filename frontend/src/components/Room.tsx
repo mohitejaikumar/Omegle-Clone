@@ -253,6 +253,7 @@ export const Room = ({
 
             if (localVideoRef.current) {
                 localVideoRef.current.srcObject = new MediaStream([localVideoTrack]);
+            
                 localVideoRef.current.play();
             }
 
@@ -266,7 +267,7 @@ export const Room = ({
 
                 <div>
                     <h1>LocalStream</h1>
-                    <video src="" autoPlay ref={localVideoRef}></video>
+                    <video src="" autoPlay ref={localVideoRef} muted></video>
                 </div>
                 <div>
                     <h1>RemoteStream</h1>
