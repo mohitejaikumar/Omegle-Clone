@@ -270,6 +270,9 @@ export const Room = ({
                 </div>
                 <div>
                     <h1>RemoteStream</h1>
+                    { !remoteVideoRef.current && 
+                        <h1>Please Wait ...</h1>
+                    }
                     <video src="" autoPlay ref={remoteVideoRef}></video>
                 </div>
 
